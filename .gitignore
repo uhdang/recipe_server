@@ -1,1 +1,10 @@
 venv
+*.pyc
+staticfiles
+.env
+env
+node_modules
+config/static/build
+db.sqlite3
+.DS_Store
+__pycache__

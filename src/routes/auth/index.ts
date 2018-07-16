@@ -1,8 +1,8 @@
-import * as express from 'express';
+import {Router, Request, Response} from 'express';
 
-const router = express.Router();
+const router = Router();
 
-router.post('/', (req, res) => {
+router.post('/', (req: Request, res: Response) => {
     console.log('auth went through');
     return res.status(200).end();
 });

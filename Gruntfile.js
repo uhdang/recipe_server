@@ -11,13 +11,15 @@ module.exports = function(grunt) {
             build: {
                 expand: true,
                 dest: 'build/',
-                src: 'src/*'
+                src: 'src/**/*'
             }
         },
         ts: {
             default: {
-                tsconfig: './tsconfig.json'
-
+                options: {
+                    fast: 'never'
+                },
+                src: ["build/**/*.ts"]
             }
         }
         

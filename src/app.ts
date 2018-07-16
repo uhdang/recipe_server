@@ -7,7 +7,7 @@ import * as routes from './routes';
 
 const app: express.Application = express();
 const port = process.env.PORT || 3000;
-const appVersion = require('../package.json').version;
+const appVersion = require('../../package.json').version;
 
 app.get('/', (req: express.Request, res: express.Response) => {
     res.status(200).send('recipe.ofmine server v' + appVersion);

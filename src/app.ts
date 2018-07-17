@@ -8,20 +8,33 @@ const port = process.env.PORT || 3000;
 const appVersion = require('../../package.json').version;
 
 // DB Connection
-//const connection = mysql.createConnection({
-    //host : 'localhost',
-    //user: 'root',
-    //password: 'recipe-ofmine',
-    //database: 'testdatabase',
-//});
+const connection = mysql.createConnection({
+    host : '172.17.0.1',
+    user: 'root',
+    password: 'recipe-ofmine',
+    database: 'dev',
+});
 
-//connection.connect(err => {
-    //if (err) {
-        //console.log('Error connecting database ... \n\n');
-    //}
-//});
+connection.connect(err => {
+    if (err) {
+        console.log('Error connecting database ... \n\n');
+        throw err;
+    }
+    console.log('Connected');
+});
+
+connection.query('SELECT 1 + 1 AS solution', (err, rows, fields) => {
+    if (err) throw err;
+    console.log('The solution is: ', rows[0].solution);
+});
 
 app.get('/', (req: express.Request, res: express.Response) => {
+    connection.query("SELECT * FROM dev", (error, rows, fields) => {
+        if (error) {
+            throw error;
+        }
+    
+    });
     res.status(200).send(`recipe.ofmine server v${appVersion}\n`);
 });
 

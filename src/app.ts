@@ -7,12 +7,21 @@ const app: express.Application = express();
 const port = process.env.PORT || 3000;
 const appVersion = require('../../package.json').version;
 
-// DB Connection
-const connection = mysql.createConnection({
-    host : '172.17.0.1',
+const db = {
+    host: 'localhost',
     user: 'root',
     password: 'recipe-ofmine',
     database: 'dev',
+    port: 3306,
+}
+
+// DB Connection
+const connection = mysql.createConnection({
+    host : db.host,
+    user: db.user,
+    password: db.password, 
+    database: db.database,
+    port: db.port,
 });
 
 connection.connect(err => {

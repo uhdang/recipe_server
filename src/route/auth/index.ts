@@ -1,6 +1,6 @@
 import { Request, Response, Router} from 'express';
 
-const router = Router();
+const router:Router = Router();
 
 router.get('/', (req: Request, res: Response) => {
     console.log('auth went through');

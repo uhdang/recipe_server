@@ -1,11 +1,12 @@
-import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import * as mysql from 'mysql';
-import * as routes from './routes';
+import * as router from './api';
 
 const app: express.Application = express();
 const port = process.env.PORT || 3000;
 const appVersion = require('../../package.json').version;
+
+//express_config
 
 const db = {
     database: 'dev',
@@ -40,15 +41,15 @@ connection.query('SELECT 1 + 1 AS solution', (err, rows, fields) => {
 });
 
 app.get('/', (req: express.Request, res: express.Response) => {
-    connection.query('SELECT * FROM dev', (error, rows, fields) => {
-        if (error) {
-            throw error;
-        }
-    });
+    //connection.query('SELECT * FROM dev', (error, rows, fields) => {
+        //if (error) {
+            //throw error;
+        //}
+    //});
     res.status(200).send(`recipe.ofmine server v${appVersion}\n`);
 });
 
-routes.apply(app);
+router.apply(app);
 
 app.listen(port, () => {
     console.log(`Listening on port:${port}/`);

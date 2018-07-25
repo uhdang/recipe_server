@@ -6,6 +6,7 @@
     "jsRules": {},
     "rules": {
         "class-name": true,
+        "comment-format": false,
         "curly": true,
         "eofline": true,
         "forin": true,

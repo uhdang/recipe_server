@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as mysql from 'mysql';
-import * as router from './api';
+import * as router from './route';
 
 const app: express.Application = express();
 const port = process.env.PORT || 3000;

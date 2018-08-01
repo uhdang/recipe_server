@@ -1,10 +1,13 @@
 import * as express from 'express';
 import * as mysql from 'mysql';
+import * as bodyParser from 'body-parser';
 import * as router from './route';
 
 const app: express.Application = express();
 const port = 3000;
 const appVersion = require('../../package.json').version;
+
+app.use(bodyParser.urlencoded({extended: true}));
 
 //express_config
 
@@ -66,6 +69,29 @@ connection.query(createUserTable, (err, results, fields) => {
 //});
 
 // ##########################################################
+
+app.post('/register', (req: express.Request | any, res: express.Response) => {
+    console.log('bodyparser check');
+    console.log(req.body);
+    const { username, password, email } = req.body;
+    const person = {
+        username,
+        password,
+        email
+    };
+
+    const q = 'INSERT INTO users SET ?';
+
+    connection.query(q, person, (err, result) => {
+        if (err) {
+            throw err;
+        }
+        console.log(result);
+        res.status(200).send('Thanks for joining our wait list!');
+
+    });
+
+});
 
 app.get('/', (req: express.Request, res: express.Response) => {
     res.status(200).send(`recipe.ofmine server v${appVersion}\n`);

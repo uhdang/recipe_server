@@ -3,7 +3,7 @@ import * as mysql from 'mysql';
 import * as router from './route';
 
 const app: express.Application = express();
-const port = process.env.PORT || 3000;
+const port = 3000;
 const appVersion = require('../../package.json').version;
 
 //express_config
@@ -31,26 +31,60 @@ connection.connect((err) => {
         throw err;
     }
     console.log('Connected');
+
 });
 
-connection.query('SELECT 1 + 1 AS solution', (err, rows, fields) => {
-    if (err) {
-        throw err;
-    }
-    console.log('The solution is: ', rows[0].solution);
+const createUserTable = `
+CREATE TABLE IF NOT EXISTS users (
+id INT AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR(255) NOT NULL,
+password VARCHAR(255) NOT NULL,
+email VARCHAR(255) NOT NULL,
+created_at TIMESTAMP DEFAULT NOW()
+)`;
+
+connection.query(createUserTable, (err, results, fields) => {
+    if (err) { throw err; }
+    console.log('createdUserTable');
+    //console.log(results);
 });
+
+// ############# TEMP DATA INSERT ##########################
+
+//const insertUser = `
+//INSERT INTO users SET ?
+//`;
+//const person = {
+//username: 'noname01',
+//password: 'yesname01',
+//email: 'noname01@noname01.com'
+//};
+
+//connection.query(insertUser, person, (err, result) => {
+//if (err) { throw err; }
+////console.log(result);
+//});
+
+// ##########################################################
 
 app.get('/', (req: express.Request, res: express.Response) => {
-    //connection.query('SELECT * FROM dev', (error, rows, fields) => {
-        //if (error) {
-            //throw error;
-        //}
-    //});
     res.status(200).send(`recipe.ofmine server v${appVersion}\n`);
+});
+
+app.get('/users', (req:express.Request, res: express.Response) => {
+    const q = 'SELECT COUNT(*) AS count FROM users';
+    connection.query(q, (err, results) => {
+        if (err) {
+            throw err;
+        }
+        console.log(results);
+        res.send('We have ' + results[0].count + ' users in our db');
+    });
 });
 
 router.apply(app);
 
+//connection.end();
 app.listen(port, () => {
     console.log(`Listening on port:${port}/`);
 });

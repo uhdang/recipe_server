@@ -1,10 +1,10 @@
 import {Router} from 'express';
-import {createUser, deleteUser, getUser} from '../../api/user';
+import {createUser, deleteUser, getUsers} from '../../api/user';
 
 const router:Router = Router();
 
 router.post('/', createUser);
-router.get('/', getUser);
+router.get('/', getUsers);
 router.delete('/', deleteUser);
 
 export default router;

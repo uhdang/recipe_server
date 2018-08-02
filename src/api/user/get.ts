@@ -1,7 +1,7 @@
 import {Request, Response} from 'express';
 const connection = require('../../db');
 
-export const getUser = (req:Request, res:Response) => {
+export const getUsers = (req:Request, res:Response) => {
     // GETUSER
     const q = 'SELECT COUNT(*) AS count FROM users';
     connection.query(q, (err:Error, results:any) => {
